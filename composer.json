@@ -1,0 +1,21 @@
+{
+  "name": "qtvhao/form",
+  "description": "Form with Eloquent and jQueryValidation integrated",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "haonx",
+      "email": "qtvhao@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Qtvhao\\Form\\": ""
+    }
+  },
+  "require": {
+    "illuminate/support": "v5.4.9",
+    "illuminate/database": "v5.4.9"
+  }
+}
