@@ -12,10 +12,17 @@ namespace Qtvhao\Form\Elements;
 class Element
 {
     public $attributes;
+    public $classes;
 
     public function getTagName()
     {
         return 'div';
+    }
+
+    public function addClass($className)
+    {
+        data_set($this, 'classes.' . $className, $className);
+        return $this;
     }
 
     public function __construct()

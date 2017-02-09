@@ -11,9 +11,11 @@ namespace Qtvhao\Form\Elements;
 
 class Field extends Element
 {
-    public $required;
+    public $required = false;
     public $label = '';
     public $id = '';
+    public $value = '';
+    public $mean = '';
 
     public function required()
     {
@@ -30,7 +32,7 @@ class Field extends Element
 
     public function value($value)
     {
-        $this->attribute('value', $value);
+        $this->value = $value;
         return $this;
     }
 
@@ -44,6 +46,12 @@ class Field extends Element
     {
         $this->label = $text;
 
+        return $this;
+    }
+
+    public function means($mean)
+    {
+        $this->mean = $mean;
         return $this;
     }
 }

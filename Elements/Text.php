@@ -34,7 +34,7 @@ class Text extends Field
 
     public function __toString()
     {
-        return '<input type="' . $this->type . '" name="" id="" class="form-control" value="" title="" required="required" >';
+        return '<input type="' . $this->type . '" name="'.$this->mean.'" id="' . $this->id . '" class="form-control" value="' . $this->value . '" title="">';
     }
 
 }
