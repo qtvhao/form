@@ -11,23 +11,33 @@ namespace Qtvhao\Form\Elements;
 
 class Field extends Element
 {
-    public $required = false;
     public $label = '';
     public $id = '';
     public $value = '';
     public $mean = '';
+    public $rules = [];
 
+    /**
+     * @return Field $this
+     */
     public function required()
     {
-        $this->required = true;
+        $this->rule('required');
+        return $this;
+    }
+
+    public function rule($name, $options = ['params' => []])
+    {
+        data_set($this, 'rules.' . $name, compact('name', 'options'));
+
         return $this;
     }
 
     public function unique($table, $column)
     {
-        $this->unique_in = $table;
-        $this->unique_by = $column;
-        return $this;
+        return $this->rule('unique', [
+            'params' => [compact('table', 'column')]
+        ]);
     }
 
     public function value($value)
@@ -53,5 +63,45 @@ class Field extends Element
     {
         $this->mean = $mean;
         return $this;
+    }
+
+    public function jQueryValidatorApplyRequired($results, $parameters)
+    {
+        data_set($results, "rules.{$this->mean}.required", true);
+
+        return $results;
+    }
+
+    public function jQueryValidatorApplyUnique($results, $parameters)
+    {
+        data_set($results, "rules.{$this->mean}.remote", data_get($this, 'remoteUrl', 'jquery-validation-remoter.php?selector=' . implode('.', $parameters)));
+
+        return $results;
+    }
+
+    public function jQueryValidatorApplyIn($results, $parameters)
+    {
+        throw new \Exception();
+    }
+
+    public function jQueryValidatorApplyEmail($results, $parameters)
+    {
+        data_set($results, "rules.{$this->mean}.email", true);
+
+        return $results;
+    }
+
+    public function jQueryValidatorApplyUrl($results, $parameters)
+    {
+        data_set($results, "rules.{$this->mean}.url", true);
+
+        return $results;
+    }
+
+    public function jQueryValidatorApplySame($results, $parameters)
+    {
+        data_set($results, "rules.{$this->mean}.equalTo", "[name={$parameters[0]}]");
+
+        return $results;
     }
 }

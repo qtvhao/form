@@ -58,4 +58,18 @@ class Form extends Element
         ';
     }
 
+    public function getJqueryValidationOptions()
+    {
+        $jQueryValidationOptions = [];
+        foreach ($this->fields as $field) {
+            foreach ($field->rules as $rule) {
+                $methodApplierJquery = "jQueryValidatorApply" . studly_case($rule['name']);
+                $params = [$jQueryValidationOptions, $rule['options']['params']];
+                $jQueryValidationOptions = call_user_func_array([$field, $methodApplierJquery], $params);
+            }
+        }
+
+        return $jQueryValidationOptions;
+    }
+
 }

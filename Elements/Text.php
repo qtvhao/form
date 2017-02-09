@@ -12,7 +12,6 @@ namespace Qtvhao\Form\Elements;
 class Text extends Field
 {
     public $type = 'text';
-    public $pattern;
 
     public function getTagName()
     {
@@ -21,15 +20,12 @@ class Text extends Field
 
     public function email()
     {
-        $this->type = 'email';
-        return $this;
+        return $this->rule('email');
     }
 
     public function url()
     {
-        $this->type = 'text';
-        $this->pattern = '';
-        return $this;
+        return $this->rule('url');
     }
 
     public static function make($mean = '')
