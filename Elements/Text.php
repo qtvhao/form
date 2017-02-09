@@ -32,9 +32,21 @@ class Text extends Field
         return $this;
     }
 
+    public static function make($mean = '')
+    {
+        return parent::make();
+    }
+
+    public function __construct($mean = '')
+    {
+        parent::__construct();
+        $this->means($mean);
+        $this->label(str_replace(['_', '-'], '', title_case($mean)));
+    }
+
     public function __toString()
     {
-        return '<input type="' . $this->type . '" name="'.$this->mean.'" id="' . $this->id . '" class="form-control" value="' . $this->value . '" title="">';
+        return '<input type="' . $this->type . '" name="' . $this->mean . '" id="' . $this->id . '" class="form-control" value="' . $this->value . '" title="">';
     }
 
 }
