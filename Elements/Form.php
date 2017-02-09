@@ -15,6 +15,7 @@ class Form extends Element
      * @var \Illuminate\Support\Collection|Field[]
      */
     public $fields;
+    public $action = '';
 
     public function __construct()
     {
@@ -27,15 +28,22 @@ class Form extends Element
         return 'form';
     }
 
+    public function action($action)
+    {
+        $this->action = $action;
+
+        return $this;
+    }
+
     public function __toString()
     {
-        return '<form>' .
+        return '<form class="form-horizontal" action="' . $this->action . '">' .
             $this->fields->map(function (Field $field, $key) {
                 $field->id = 'fm-' . $key;
 
                 $label = '';
                 if ($field->label) {
-                    $label = '<label for="inputID" class="col-sm-2 control-label">' . $field->label . ':</label>';
+                    $label = '<label for="' . $field->id . '" class="col-sm-2 control-label">' . $field->label . ':</label>';
                 }
                 return '
 <div class="form-group">
